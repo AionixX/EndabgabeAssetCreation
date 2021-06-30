@@ -12,8 +12,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float smoothSpeedTime;
     [SerializeField] float turnSmoothTime;
+    [SerializeField] GameObject arcAttack;
+    [SerializeField] float waitTillInstantiateArc;
+    [SerializeField] float arcCastDistance;
+    [SerializeField] float arcCastTime = 2f;
+    [SerializeField] float arcCastMin = 0.2f;
     [SerializeField] GameObject hammerAttack;
     [SerializeField] float waitTillInstantiateHammer;
+    [SerializeField] float arcMovementBlockedTime;
     [SerializeField] float hammerCastDistance;
     [SerializeField] int lightningAmount = 100;
     [SerializeField] float lightningDistance = 0.1f;
@@ -25,20 +31,36 @@ public class PlayerController : MonoBehaviour
     Vector3 lastMoveDir;
     bool movementBlocked = false;
     bool isHammerCasting = false;
+    bool isArcCasting = false;
     public float actualHammerCastTime = 0f;
+    public float actualArcCastTime = 0f;
 
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         bool castHammerInput = Input.GetMouseButton(1);
+        bool castArcInput = Input.GetMouseButton(0);
 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
 
-        if (castHammerInput)
+        if (castHammerInput) {
             HammerCast();
-        else if (isHammerCasting)
+            return;
+        }
+        else if (isHammerCasting) {
             HammerAttack();
+            return;
+        }
+
+        if (castArcInput) {
+            ArcCast();
+            return;
+        }
+        else if (isArcCasting) {
+            ArcAttack();
+            return;
+        }
 
         if (movementBlocked) { dir = Vector3.zero; }
         Move(dir);
@@ -95,6 +117,35 @@ public class PlayerController : MonoBehaviour
         }
 
         actualHammerCastTime = 0f;
+    }
+
+    public void ArcCast()
+    {
+        movementBlocked = true;
+        isArcCasting = true;
+        actualArcCastTime += Time.deltaTime;
+
+        if (actualArcCastTime > arcCastTime)
+            actualArcCastTime = arcCastTime;
+    }
+
+    public void ArcAttack()
+    {
+        isArcCasting = false;
+
+        if (actualArcCastTime > arcCastMin)
+        {
+            anim.SetTrigger("arcAttack");
+            StartCoroutine(WaitTillInstantiateHammerAttack(waitTillInstantiateArc));
+            StartCoroutine(ResetMovementBlockedIn(arcMovementBlockedTime));
+        }
+        else
+        {
+            movementBlocked = false;
+            anim.SetTrigger("arcCanceled");
+        }
+
+        actualArcCastTime = 0f;
     }
 
     IEnumerator ResetMovementBlockedIn(float _time)
