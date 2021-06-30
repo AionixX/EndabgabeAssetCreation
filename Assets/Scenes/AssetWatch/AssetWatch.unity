@@ -1686,18 +1686,20 @@ MonoBehaviour:
   cam: {fileID: 1326160441}
   movementThreshold: 0.1
   speed: 12
-  smoothSpeedTime: 0.04
+  smoothSpeedTime: 0.07
   turnSmoothTime: 0.18
   arcAttack: {fileID: 2479188957125741730, guid: df1b332f6a8c4974285732eb0e09c614, type: 3}
   arcSpawnPosition: {fileID: 608222448}
-  waitTillInstantiateArc: 0.2
+  waitTillInstantiateArc: 0.65
+  arcDamage: 10
   arcSpeed: 35
   arcLifetime: 3
   arcCastTime: 2
   arcCastMin: 0.2
   hammerAttack: {fileID: 3877529601292115406, guid: 056bf8a47f7037242bfc357d2ae3acbd, type: 3}
   hammerSpawnPosition: {fileID: 686204996}
-  waitTillInstantiateHammer: 0.3
+  hammerDamage: 10
+  waitTillInstantiateHammer: 0.4
   arcMovementBlockedTime: 0
   lightningAmount: 100
   lightningDistance: 0.25
@@ -1898,7 +1900,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312923568}
-  m_LocalRotation: {x: 0.16363993, y: -0.000000008487222, z: 0.0000000014078255, w: 0.9865202}
+  m_LocalRotation: {x: 0.16363993, y: 0.000000008487221, z: -0.0000000014078252, w: 0.9865202}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2061,7 +2063,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326160436}
-  m_LocalRotation: {x: 0.13740796, y: -0.000000019599646, z: 0.0000000027189377, w: 0.99051464}
+  m_LocalRotation: {x: 0.13740796, y: 0.000000019599646, z: -0.0000000027189377, w: 0.99051464}
   m_LocalPosition: {x: 0, y: 3.495639, z: -7.3156247}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

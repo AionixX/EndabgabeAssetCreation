@@ -5,11 +5,20 @@ using UnityEngine;
 public class LightningController : MonoBehaviour
 {
     [SerializeField] GameObject lightningPrefab;
+    float damage;
+    int lightningsLeft;
+    float lightningDistance;
+    float lightningNextTime;
 
-    public void Init(int _lightningsLeft, float _lightningDistance = 0.1f, float _lightningNextTime = 0.1f)
+    public void Init(float _damage, int _lightningsLeft, float _lightningDistance = 0.1f, float _lightningNextTime = 0.1f)
     {
+        damage = _damage;
+        lightningsLeft = _lightningsLeft;
+        lightningDistance = _lightningDistance;
+        lightningNextTime = _lightningNextTime;
+
         if (_lightningsLeft > 0)
-            StartCoroutine(WaitTillNext(_lightningsLeft, _lightningDistance, _lightningNextTime));
+            StartCoroutine(WaitTillNext());
         else
             StartCoroutine(WaitTillDie());
     }
@@ -19,11 +28,11 @@ public class LightningController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    IEnumerator WaitTillNext(int _lightningsLeft, float _lightningDistance, float _lightningNextTime)
+    IEnumerator WaitTillNext()
     {
-        yield return new WaitForSeconds(_lightningNextTime);
-        LightningController controller = Instantiate(lightningPrefab, transform.position + (transform.forward * _lightningDistance), transform.rotation).GetComponent<LightningController>();
-        controller.Init(--_lightningsLeft, _lightningDistance, _lightningNextTime);
+        yield return new WaitForSeconds(lightningNextTime);
+        LightningController controller = Instantiate(lightningPrefab, transform.position + (transform.forward * lightningDistance), transform.rotation).GetComponent<LightningController>();
+        controller.Init(damage, --lightningsLeft, lightningDistance, lightningNextTime);
         StartCoroutine(WaitTillDie());
     }
     IEnumerator WaitTillDie(float _time = 0.5f) {

@@ -15,12 +15,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject arcAttack;
     [SerializeField] Transform arcSpawnPosition;
     [SerializeField] float waitTillInstantiateArc;
+    [SerializeField] float arcDamage = 10f;
     [SerializeField] float arcSpeed = 10f;
     [SerializeField] float arcLifetime = 3f;
     [SerializeField] float arcCastTime = 2f;
     [SerializeField] float arcCastMin = 0.2f;
     [SerializeField] GameObject hammerAttack;
     [SerializeField] Transform hammerSpawnPosition;
+    [SerializeField] float hammerDamage = 10f;
     [SerializeField] float waitTillInstantiateHammer;
     [SerializeField] float arcMovementBlockedTime;
     [SerializeField] int lightningAmount = 100;
@@ -43,6 +45,9 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         bool castHammerInput = Input.GetMouseButton(1);
         bool castArcInput = Input.GetMouseButton(0);
+
+        anim.SetFloat("hammerCastTime", actualHammerCastTime);
+        anim.SetFloat("arcCastTime", actualArcCastTime);
 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
 
@@ -68,7 +73,8 @@ public class PlayerController : MonoBehaviour
         Move(dir);
 
         controller.Move(Physics.gravity * Time.deltaTime);
-        anim.SetFloat("hammerCastTime", actualHammerCastTime);
+
+        
     }
 
     public void Move(Vector3 _dir)
@@ -97,7 +103,7 @@ public class PlayerController : MonoBehaviour
         movementBlocked = true;
         isHammerCasting = true;
         actualHammerCastTime += Time.deltaTime;
-        anim.SetFloat("hammerCastTime", actualHammerCastTime);
+        
 
         if (actualHammerCastTime > hammerCastTime)
             actualHammerCastTime = hammerCastTime;
@@ -109,8 +115,9 @@ public class PlayerController : MonoBehaviour
 
         if (actualHammerCastTime > hammerCastMin)
         {
+            float multiplier = actualHammerCastTime / hammerCastTime;
             anim.SetTrigger("hammerAttack");
-            StartCoroutine(WaitTillInstantiateHammerAttack(waitTillInstantiateHammer));
+            StartCoroutine(WaitTillInstantiateHammerAttack(multiplier, waitTillInstantiateHammer));
             StartCoroutine(ResetMovementBlockedIn(hammerMovementBlockedTime));
         }
         else
@@ -127,6 +134,7 @@ public class PlayerController : MonoBehaviour
         movementBlocked = true;
         isArcCasting = true;
         actualArcCastTime += Time.deltaTime;
+        
 
         if (actualArcCastTime > arcCastTime)
             actualArcCastTime = arcCastTime;
@@ -138,8 +146,9 @@ public class PlayerController : MonoBehaviour
 
         if (actualArcCastTime > arcCastMin)
         {
+            float multiplier = actualArcCastTime / arcCastTime;
             anim.SetTrigger("arcAttack");
-            StartCoroutine(WaitTillInstantiateArcAttack(waitTillInstantiateArc));
+            StartCoroutine(WaitTillInstantiateArcAttack(multiplier, waitTillInstantiateArc));
             StartCoroutine(ResetMovementBlockedIn(arcMovementBlockedTime));
         }
         else
@@ -157,17 +166,17 @@ public class PlayerController : MonoBehaviour
         movementBlocked = false;
     }
 
-    IEnumerator WaitTillInstantiateArcAttack(float _time = 0.1f)
+    IEnumerator WaitTillInstantiateArcAttack(float _multiplier = 1f, float _time = 0.1f)
     {
         yield return new WaitForSeconds(_time);
         ArcController attack = Instantiate(arcAttack, arcSpawnPosition.position, transform.rotation).GetComponent<ArcController>();
-        attack.Init(arcSpeed, arcLifetime);
+        attack.Init(arcDamage * _multiplier, arcSpeed, arcLifetime);
     }
 
-    IEnumerator WaitTillInstantiateHammerAttack(float _time = 0.1f)
+    IEnumerator WaitTillInstantiateHammerAttack(float _multiplier = 1f, float _time = 0.1f)
     {
         yield return new WaitForSeconds(_time);
         LightningController attack = Instantiate(hammerAttack, hammerSpawnPosition.position, transform.rotation).GetComponent<LightningController>();
-        attack.Init(lightningAmount, lightningDistance, lightningNextTime);
+        attack.Init(hammerDamage, Mathf.FloorToInt(lightningAmount * _multiplier), lightningDistance, lightningNextTime);
     }
 }
