@@ -13,14 +13,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float smoothSpeedTime;
     [SerializeField] float turnSmoothTime;
     [SerializeField] GameObject arcAttack;
+    [SerializeField] Transform arcSpawnPosition;
     [SerializeField] float waitTillInstantiateArc;
-    [SerializeField] float arcCastDistance;
+    [SerializeField] float arcSpeed = 10f;
+    [SerializeField] float arcLifetime = 3f;
     [SerializeField] float arcCastTime = 2f;
     [SerializeField] float arcCastMin = 0.2f;
     [SerializeField] GameObject hammerAttack;
+    [SerializeField] Transform hammerSpawnPosition;
     [SerializeField] float waitTillInstantiateHammer;
     [SerializeField] float arcMovementBlockedTime;
-    [SerializeField] float hammerCastDistance;
     [SerializeField] int lightningAmount = 100;
     [SerializeField] float lightningDistance = 0.1f;
     [SerializeField] float lightningNextTime = 0.01f;
@@ -95,6 +97,7 @@ public class PlayerController : MonoBehaviour
         movementBlocked = true;
         isHammerCasting = true;
         actualHammerCastTime += Time.deltaTime;
+        anim.SetFloat("hammerCastTime", actualHammerCastTime);
 
         if (actualHammerCastTime > hammerCastTime)
             actualHammerCastTime = hammerCastTime;
@@ -136,7 +139,7 @@ public class PlayerController : MonoBehaviour
         if (actualArcCastTime > arcCastMin)
         {
             anim.SetTrigger("arcAttack");
-            StartCoroutine(WaitTillInstantiateHammerAttack(waitTillInstantiateArc));
+            StartCoroutine(WaitTillInstantiateArcAttack(waitTillInstantiateArc));
             StartCoroutine(ResetMovementBlockedIn(arcMovementBlockedTime));
         }
         else
@@ -154,10 +157,17 @@ public class PlayerController : MonoBehaviour
         movementBlocked = false;
     }
 
+    IEnumerator WaitTillInstantiateArcAttack(float _time = 0.1f)
+    {
+        yield return new WaitForSeconds(_time);
+        ArcController attack = Instantiate(arcAttack, arcSpawnPosition.position, transform.rotation).GetComponent<ArcController>();
+        attack.Init(arcSpeed, arcLifetime);
+    }
+
     IEnumerator WaitTillInstantiateHammerAttack(float _time = 0.1f)
     {
         yield return new WaitForSeconds(_time);
-        LightningController attack = Instantiate(hammerAttack, transform.position + (transform.forward * hammerCastDistance), transform.rotation).GetComponent<LightningController>();
+        LightningController attack = Instantiate(hammerAttack, hammerSpawnPosition.position, transform.rotation).GetComponent<LightningController>();
         attack.Init(lightningAmount, lightningDistance, lightningNextTime);
     }
 }
