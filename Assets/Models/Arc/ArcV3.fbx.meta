@@ -3,7 +3,122 @@ guid: 8fe7402c7d9318c4fbcbc096f372be8c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BigGlas
+    second: {fileID: 2100000, guid: ca6a2e1901c65eb4882acb27c91c87f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetalBigClips
+    second: {fileID: 2100000, guid: c72898e59320d4843af897bdc45ca79e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetalRingHoles
+    second: {fileID: 2100000, guid: b7a56b99a7da61048bec948d3c9dbe77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetalScrewHolders
+    second: {fileID: 2100000, guid: d19dd343668db7647b63f1d4a1d9a12d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetalScrews
+    second: {fileID: 2100000, guid: 8f7411c17ef517b4991f9d024348e671, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetalSmallClips
+    second: {fileID: 2100000, guid: 1b3313067cc12db4096a714f1af1dd09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetalTeslaWires
+    second: {fileID: 2100000, guid: e2a6f68ffce709c488158890f0c48d15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackNet
+    second: {fileID: 2100000, guid: fe341b853848b924e8cd9dfff911fb0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackPlasticInner
+    second: {fileID: 2100000, guid: 259ab4c3aff11f949975e3fc360b5c2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackPlasticOuter
+    second: {fileID: 2100000, guid: 81bbfc30475a5814885ffe90002656aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BottomLight
+    second: {fileID: 2100000, guid: 68402e08dd53be74eb64f2dc1cdbbd23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GoldRing.001
+    second: {fileID: 2100000, guid: 43b4281588f3b0744aea5254384db7ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GoldRing.002
+    second: {fileID: 2100000, guid: a35cad94ea8411048b42213b7bb80690, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GoldRing.003
+    second: {fileID: 2100000, guid: fb6bfe2b3eda2a24b8d4e16725c45cb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GoldRing.004
+    second: {fileID: 2100000, guid: 778642ef5ac7cab4ab43934b6878bf57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GoldRing.005
+    second: {fileID: 2100000, guid: 99f77230a68880e43962c6bf5e54d7cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InnerGlas
+    second: {fileID: 2100000, guid: d5c2b3cc86242664aa5989201bc25a73, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plumb
+    second: {fileID: 2100000, guid: 160880b673fb4b649b7bef6f9e38b0f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RingHolders
+    second: {fileID: 2100000, guid: 7dd939c0ea9dd1040a6f0e4e305ca052, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SilverRing
+    second: {fileID: 2100000, guid: 598073176b97558478f30e4fb50371e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WireInner
+    second: {fileID: 2100000, guid: fbe6ec465ed72ad4ab6189d6fe5d1748, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WireOuter
+    second: {fileID: 2100000, guid: 375c8ceb82185af428e19c3c837f8c28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wires
+    second: {fileID: 2100000, guid: 1d8a257334fc3db40a798a5093bca7d3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
