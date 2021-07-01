@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float arcDamage = 10f;
     [SerializeField] float arcSpeed = 10f;
     [SerializeField] float arcLifetime = 3f;
-    [SerializeField] float arcCastTime = 2f;
+    [SerializeField] public float arcCastTime = 2f;
     [SerializeField] float arcCastMin = 0.2f;
     [SerializeField] GameObject hammerAttack;
     [SerializeField] Transform hammerSpawnPosition;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int lightningAmount = 100;
     [SerializeField] float lightningDistance = 0.1f;
     [SerializeField] float lightningNextTime = 0.01f;
-    [SerializeField] float hammerCastTime = 2f;
+    [SerializeField] public float hammerCastTime = 2f;
     [SerializeField] float hammerCastMin = 0.2f;
     [SerializeField] float hammerMovementBlockedTime = 1f;
     float turnSmoothVelocity;
