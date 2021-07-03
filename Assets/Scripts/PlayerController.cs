@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController controller;
     [SerializeField] Animator anim;
     [SerializeField] Transform cam;
+    [SerializeField] int maxLives = 3;
+    [SerializeField] float explosionRadius = 3;
+    [SerializeField] float explosionForce = 1000f;
     [SerializeField] float movementThreshold = 0.1f;
     [SerializeField] float speed;
     [SerializeField] float smoothSpeedTime;
@@ -31,6 +34,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float hammerCastTime = 2f;
     [SerializeField] float hammerCastMin = 0.2f;
     [SerializeField] float hammerMovementBlockedTime = 1f;
+    public int livesLeft = 0;
+    public int score = 0;
+    bool isActive = false;
     float turnSmoothVelocity;
     Vector3 lastMoveDir;
     bool movementBlocked = false;
@@ -39,8 +45,16 @@ public class PlayerController : MonoBehaviour
     public float actualHammerCastTime = 0f;
     public float actualArcCastTime = 0f;
 
+    public void StartGame()
+    {
+        livesLeft = maxLives;
+        isActive = true;
+    }
+
     void Update()
     {
+        if (!isActive) return;
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         bool castHammerInput = Input.GetMouseButton(1);
@@ -81,6 +95,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void AddScore(int _amount) {
+        score += _amount;
+    }
+
     public void Move(Vector3 _dir)
     {
         Vector3 desiredMoveDir = _dir;
@@ -102,9 +120,24 @@ public class PlayerController : MonoBehaviour
         lastMoveDir = desiredMoveDir;
     }
 
+    public void Rotate()
+    {
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, cam.eulerAngles.y, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f,  angle, 0f);
+    }
+
     public void GetHit()
     {
         Debug.Log("Got Hit");
+        livesLeft--;
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, explosionRadius, Vector3.one, explosionRadius);
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver); ;
+            }
+        }
     }
     public void HammerCast()
     {
@@ -115,6 +148,8 @@ public class PlayerController : MonoBehaviour
 
         if (actualHammerCastTime > hammerCastTime)
             actualHammerCastTime = hammerCastTime;
+        
+        Rotate();
     }
 
     public void HammerAttack()
@@ -146,6 +181,8 @@ public class PlayerController : MonoBehaviour
 
         if (actualArcCastTime > arcCastTime)
             actualArcCastTime = arcCastTime;
+
+        Rotate();
     }
 
     public void ArcAttack()

@@ -29,4 +29,13 @@ public class ArcController : MonoBehaviour
         lifeTime = _lifetime;
         started = true;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy")) {
+            other.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
+        }
+
+        Die();
+    }
 }

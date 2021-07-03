@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] PlayerController player = null;
     [SerializeField] CharacterController controller = null;
+    [SerializeField] Collider collider =null;
+    [SerializeField] int pointsWoth = 20;
     [SerializeField] Animator anim;
     [SerializeField] Transform attackPosition = null;
     [SerializeField] float attackRadius = 1f;
@@ -18,6 +20,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float attackCooldown = 2f;
     [SerializeField] float attackReset = 0.5f;
     [SerializeField] float damage = 10f;
+    bool isActive = true;
     Vector3 lastMoveDir;
     float turnSmoothVelocity;
     bool isAttacking = false;
@@ -28,6 +31,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if(!isActive) return;
         if (isAttacking)
         {
             actualAttackCastTime += Time.deltaTime;
@@ -117,6 +121,14 @@ public class EnemyController : MonoBehaviour
 
         isResetting = true;
         actualResetCooldown = attackReset;
+    }
+
+    public void Die() {
+        player.AddScore(pointsWoth);
+        anim.SetTrigger("die");
+        isActive = false;
+        Destroy(controller);
+        Destroy(collider);
     }
 
     public void ResetAttack()

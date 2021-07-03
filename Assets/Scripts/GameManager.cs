@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         GameManager.instance = this;
+
+        player.StartGame();
     }
 
     void Update()
