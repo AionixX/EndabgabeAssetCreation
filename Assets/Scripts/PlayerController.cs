@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool IsAlive
+    {
+        private set { }
+        get { return livesLeft > 0f; }
+    }
+
     [SerializeField] CharacterController controller;
     [SerializeField] Animator anim;
     [SerializeField] Transform cam;
@@ -54,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!isActive) return;
+        if (!isActive || !IsAlive) return;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -98,6 +104,8 @@ public class PlayerController : MonoBehaviour
 
     public void AddScore(int _amount)
     {
+        if (!IsAlive) return;
+
         score += _amount;
     }
 
@@ -130,6 +138,8 @@ public class PlayerController : MonoBehaviour
 
     public void GetHit()
     {
+        if (!IsAlive) return;
+
         livesLeft--;
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, explosionRadius, Vector3.one, explosionRadius, 1 << enemyLayer);
         foreach (RaycastHit hit in hits)
@@ -219,7 +229,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(_time);
         ArcController attack = Instantiate(arcAttack, arcSpawnPosition.position, transform.rotation).GetComponent<ArcController>();
-        attack.Init(arcDamage * _multiplier, arcSpeed, arcLifetime);
+        attack.Init(arcSpeed, arcLifetime * _multiplier);
     }
 
     IEnumerator WaitTillInstantiateHammerAttack(float _multiplier = 1f, float _time = 0.1f)

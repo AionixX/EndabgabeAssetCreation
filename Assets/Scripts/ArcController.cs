@@ -6,7 +6,6 @@ public class ArcController : MonoBehaviour
 {
     float speed;
     float lifeTime;
-    float damage;
     bool started = false;
     void Update()
     {
@@ -23,8 +22,7 @@ public class ArcController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void Init(float _damage, float _speed, float _lifetime) {
-        damage = _damage;
+    public void Init(float _speed, float _lifetime) {
         speed = _speed;
         lifeTime = _lifetime;
         started = true;
