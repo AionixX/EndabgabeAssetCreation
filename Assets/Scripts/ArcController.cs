@@ -32,7 +32,7 @@ public class ArcController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy")) {
+        if(other.CompareTag("EnemyArc")) {
             other.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
         }
 

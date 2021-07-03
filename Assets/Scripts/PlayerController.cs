@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController controller;
     [SerializeField] Animator anim;
     [SerializeField] Transform cam;
+    [SerializeField] int enemyLayer = 8;
     [SerializeField] int maxLives = 3;
     [SerializeField] float explosionRadius = 3;
     [SerializeField] float explosionForce = 1000f;
@@ -130,13 +131,14 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Got Hit");
         livesLeft--;
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, explosionRadius, Vector3.one, explosionRadius);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, explosionRadius, Vector3.one, explosionRadius, 1 << enemyLayer);
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver); ;
-            }
+            hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
+            // if (hit.collider.CompareTag("Enemy"))
+            // {
+                
+            // }
         }
     }
     public void HammerCast()

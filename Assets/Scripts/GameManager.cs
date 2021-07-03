@@ -9,9 +9,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
     [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] int startEnemys = 5;
+    [SerializeField] float instantiateStartTime = 3f;
+    [SerializeField] float instantiateTimeLoss = 0.05f;
+    [SerializeField] float instantiateTimeMin = 0.2f;
 
     private List<GameObject> enemys = new List<GameObject>();
     bool gamePaused = false;
+    float instantiateTime = 2f;
+    float actualInstantiateTimer = 0f;
 
     void Start()
     {
@@ -36,16 +41,21 @@ public class GameManager : MonoBehaviour
             
         if (!gamePaused)
             LockCursor();
+
+        actualInstantiateTimer -= Time.deltaTime;
+        if(actualInstantiateTimer <= 0f)
+            SpawnEnemy();
     }
 
     void LockCursor()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     public void StartGame()
     {
+        instantiateTime = instantiateStartTime;
         player.StartGame();
 
         for (int i = 0; i < startEnemys; i++)
@@ -54,13 +64,15 @@ public class GameManager : MonoBehaviour
         }
     }
     public void EnemyDied() {
-        SpawnEnemy();
+        // SpawnEnemy();
+        instantiateTime = Mathf.Clamp(instantiateTime - instantiateTimeLoss, instantiateTimeMin, float.MaxValue);
     }
 
     private void SpawnEnemy()
     {
         EnemyController newEnemy = Instantiate(GetRandomEnemy(), GetRandomSpawnPosition(), Quaternion.identity).GetComponent<EnemyController>();
         newEnemy.TakePlayer(player);
+        actualInstantiateTimer = instantiateTime;
     }
 
     private Vector3 GetRandomSpawnPosition()
