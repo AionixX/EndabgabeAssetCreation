@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < hearts.Count; i++)
         {
-            hearts[i].SetActive(i <= player.livesLeft);
+            hearts[i].SetActive(i < player.livesLeft);
         }
     }
 }

@@ -113,8 +113,10 @@ public class EnemyController : MonoBehaviour
 
         for (int i = 0; i < hit.Length; i++)
         {
-            if (hit[i].collider.gameObject == player.gameObject)
+            if (hit[i].collider.gameObject == player.gameObject) {
                 player.GetHit();
+                return;
+            }
         }
         // if (Physics.SphereCast(attackPosition.position, attackRadius, Vector3.zero, out RaycastHit hit))
         // {

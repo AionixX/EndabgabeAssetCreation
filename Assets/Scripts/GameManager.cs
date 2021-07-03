@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        Time.timeScale = 1f;
         instantiateTime = instantiateStartTime;
         player.StartGame();
 
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         gamePaused = true;
         gameOverCanvas.SetActive(true);
         gameOverScoreText.text = player.score.ToString();
+        UnlockCursor();
     }
 
     public void LoadScene(String _name) {
