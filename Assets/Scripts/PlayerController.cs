@@ -51,20 +51,24 @@ public class PlayerController : MonoBehaviour
 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
 
-        if (castHammerInput) {
+        if (castHammerInput)
+        {
             HammerCast();
             return;
         }
-        else if (isHammerCasting) {
+        else if (isHammerCasting)
+        {
             HammerAttack();
             return;
         }
 
-        if (castArcInput) {
+        if (castArcInput)
+        {
             ArcCast();
             return;
         }
-        else if (isArcCasting) {
+        else if (isArcCasting)
+        {
             ArcAttack();
             return;
         }
@@ -74,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(Physics.gravity * Time.deltaTime);
 
-        
+
     }
 
     public void Move(Vector3 _dir)
@@ -98,12 +102,16 @@ public class PlayerController : MonoBehaviour
         lastMoveDir = desiredMoveDir;
     }
 
+    public void GetHit()
+    {
+        Debug.Log("Got Hit");
+    }
     public void HammerCast()
     {
         movementBlocked = true;
         isHammerCasting = true;
         actualHammerCastTime += Time.deltaTime;
-        
+
 
         if (actualHammerCastTime > hammerCastTime)
             actualHammerCastTime = hammerCastTime;
@@ -134,7 +142,7 @@ public class PlayerController : MonoBehaviour
         movementBlocked = true;
         isArcCasting = true;
         actualArcCastTime += Time.deltaTime;
-        
+
 
         if (actualArcCastTime > arcCastTime)
             actualArcCastTime = arcCastTime;
