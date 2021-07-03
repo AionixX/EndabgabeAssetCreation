@@ -1,11 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     [SerializeField] PlayerController player = null;
+    [SerializeField] GameObject gameCanvas = null;
+    [SerializeField] GameObject pauseCanvas = null;
+    [SerializeField] GameObject gameOverCanvas = null;
+    [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
     [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] int startEnemys = 5;
@@ -33,14 +40,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && gamePaused)
-            gamePaused = false;
-        
+        if(gamePaused) return;
+
         if(Input.GetKeyDown(KeyCode.Escape))
-            gamePaused = true;
+            PauseGame();
             
-        if (!gamePaused)
-            LockCursor();
+        // if (!gamePaused)
+        //     LockCursor();
 
         actualInstantiateTimer -= Time.deltaTime;
         if(actualInstantiateTimer <= 0f)
@@ -53,6 +59,11 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    void UnlockCursor() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void StartGame()
     {
         instantiateTime = instantiateStartTime;
@@ -62,9 +73,34 @@ public class GameManager : MonoBehaviour
         {
             SpawnEnemy();
         }
+        LockCursor();
     }
+
+    public void PauseGame() {
+        pauseCanvas.SetActive(true);
+        gamePaused = true;
+        Time.timeScale = 0f;
+        UnlockCursor();
+    }
+
+    public void ResumeGame() {
+        pauseCanvas.SetActive(false);
+        gamePaused = false;
+        Time.timeScale = 1f;
+        LockCursor();
+    }
+
+    public void EndGame() {
+        gamePaused = true;
+        gameOverCanvas.SetActive(true);
+        gameOverScoreText.text = player.score.ToString();
+    }
+
+    public void LoadScene(String _name) {
+        SceneManager.LoadSceneAsync(_name, LoadSceneMode.Single);
+    }
+
     public void EnemyDied() {
-        // SpawnEnemy();
         instantiateTime = Mathf.Clamp(instantiateTime - instantiateTimeLoss, instantiateTimeMin, float.MaxValue);
     }
 
@@ -77,12 +113,12 @@ public class GameManager : MonoBehaviour
 
     private Vector3 GetRandomSpawnPosition()
     {
-        int rnd = Random.Range(0, enemySpawnPoints.Count);
+        int rnd = UnityEngine.Random.Range(0, enemySpawnPoints.Count);
         return enemySpawnPoints[rnd].position;
     }
 
     private GameObject GetRandomEnemy() {
-        int rnd = Random.Range(0, enemyPrefabs.Count);
+        int rnd = UnityEngine.Random.Range(0, enemyPrefabs.Count);
         return enemyPrefabs[rnd];
     }
 }

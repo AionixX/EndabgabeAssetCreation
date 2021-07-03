@@ -96,7 +96,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void AddScore(int _amount) {
+    public void AddScore(int _amount)
+    {
         score += _amount;
     }
 
@@ -124,21 +125,22 @@ public class PlayerController : MonoBehaviour
     public void Rotate()
     {
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, cam.eulerAngles.y, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f,  angle, 0f);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
     public void GetHit()
     {
-        Debug.Log("Got Hit");
         livesLeft--;
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, explosionRadius, Vector3.one, explosionRadius, 1 << enemyLayer);
         foreach (RaycastHit hit in hits)
         {
             hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
-            // if (hit.collider.CompareTag("Enemy"))
-            // {
-                
-            // }
+        }
+
+        if (livesLeft <= 0)
+        {
+            GameManager.instance.EndGame();
+            anim.SetTrigger("die");
         }
     }
     public void HammerCast()
@@ -150,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
         if (actualHammerCastTime > hammerCastTime)
             actualHammerCastTime = hammerCastTime;
-        
+
         Rotate();
     }
 
