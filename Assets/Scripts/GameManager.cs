@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     [SerializeField] PlayerController player = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
-    [SerializeField] GameObject enemyPrefab = null;
+    [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] int startEnemys = 5;
 
     private List<GameObject> enemys = new List<GameObject>();
@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
         }
         GameManager.instance = this;
 
-        player.StartGame();
+        
+        StartGame();
     }
 
     void Update()
@@ -45,20 +46,31 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        player.StartGame();
+
         for (int i = 0; i < startEnemys; i++)
         {
             SpawnEnemy();
         }
     }
+    public void EnemyDied() {
+        SpawnEnemy();
+    }
 
     private void SpawnEnemy()
     {
-        GameObject newEnemy = Instantiate(enemyPrefab, GetRandomSpawnPosition(), Quaternion.identity);
+        EnemyController newEnemy = Instantiate(GetRandomEnemy(), GetRandomSpawnPosition(), Quaternion.identity).GetComponent<EnemyController>();
+        newEnemy.TakePlayer(player);
     }
 
     private Vector3 GetRandomSpawnPosition()
     {
         int rnd = Random.Range(0, enemySpawnPoints.Count);
         return enemySpawnPoints[rnd].position;
+    }
+
+    private GameObject GetRandomEnemy() {
+        int rnd = Random.Range(0, enemyPrefabs.Count);
+        return enemyPrefabs[rnd];
     }
 }

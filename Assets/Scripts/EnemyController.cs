@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float attackCooldown = 2f;
     [SerializeField] float attackReset = 0.5f;
     [SerializeField] float damage = 10f;
-    bool isActive = true;
+    bool isActive = false;
     Vector3 lastMoveDir;
     float turnSmoothVelocity;
     bool isAttacking = false;
@@ -68,6 +68,11 @@ public class EnemyController : MonoBehaviour
         actualCooldown -= Time.deltaTime;
         actualResetCooldown -= Time.deltaTime;
 
+    }
+
+    public void TakePlayer(PlayerController _player) {
+        player = _player;
+        isActive = true;
     }
 
     public void Move(Vector3 _dir)
@@ -127,6 +132,8 @@ public class EnemyController : MonoBehaviour
         player.AddScore(pointsWoth);
         anim.SetTrigger("die");
         isActive = false;
+        gameObject.tag = "Dead";
+        GameManager.instance.EnemyDied();
         Destroy(controller);
         Destroy(collider);
     }

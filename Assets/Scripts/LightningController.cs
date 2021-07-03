@@ -39,4 +39,11 @@ public class LightningController : MonoBehaviour
         yield return new WaitForSeconds(_time);
         Die();
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy")) {
+            other.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
+        }
+    }
 }
