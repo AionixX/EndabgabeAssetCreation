@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameOverCanvas = null;
     [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
-    [SerializeField] List<GameObject> enemyPrefabs = new List<GameObject>();
+    [SerializeField] List<EnemyController> enemyPrefabs = new List<EnemyController>();
     [SerializeField] int startEnemys = 5;
     [SerializeField] float instantiateStartTime = 3f;
     [SerializeField] float instantiateTimeLoss = 0.05f;
@@ -108,7 +108,10 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        EnemyController newEnemy = Instantiate(GetRandomEnemy(), GetRandomSpawnPosition(), Quaternion.identity).GetComponent<EnemyController>();
+        Vector3 rndPos = GetRandomSpawnPosition();
+        EnemyController enemy = GetRandomEnemy();
+        Instantiate(enemy.portalPrefab, rndPos, Quaternion.identity);
+        EnemyController newEnemy = Instantiate(enemy, rndPos, Quaternion.identity);
         newEnemy.TakePlayer(player);
         actualInstantiateTimer = instantiateTime;
     }
@@ -119,7 +122,7 @@ public class GameManager : MonoBehaviour
         return enemySpawnPoints[rnd].position;
     }
 
-    private GameObject GetRandomEnemy() {
+    private EnemyController GetRandomEnemy() {
         int rnd = UnityEngine.Random.Range(0, enemyPrefabs.Count);
         return enemyPrefabs[rnd];
     }

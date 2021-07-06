@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8033d67b687910546ac727c4bb7cdffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diePrefab: {fileID: 0}
+  collidePrefab: {fileID: 3785908783242936682, guid: a052044c99a8dad43819687cf2ef32e7, type: 3}
 --- !u!135 &3088952211525825675
 SphereCollider:
   m_ObjectHideFlags: 0

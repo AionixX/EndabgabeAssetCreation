@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject arcAttack;
     [SerializeField] Transform arcSpawnPosition;
     [SerializeField] float waitTillInstantiateArc;
-    [SerializeField] float arcDamage = 10f;
     [SerializeField] float arcSpeed = 10f;
+    [SerializeField] float arcExplosionRadius = 3f;
     [SerializeField] float arcLifetime = 3f;
     [SerializeField] public float arcCastTime = 2f;
     [SerializeField] float arcCastMin = 0.2f;
@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(_time);
         ArcController attack = Instantiate(arcAttack, arcSpawnPosition.position, transform.rotation).GetComponent<ArcController>();
-        attack.Init(arcSpeed, arcLifetime * _multiplier);
+        attack.Init(arcSpeed, arcLifetime * _multiplier, arcExplosionRadius);
     }
 
     IEnumerator WaitTillInstantiateHammerAttack(float _multiplier = 1f, float _time = 0.1f)

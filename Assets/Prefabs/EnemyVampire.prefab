@@ -162,6 +162,7 @@ MonoBehaviour:
   player: {fileID: 0}
   controller: {fileID: 3504875919906575521}
   collider: {fileID: 3504875919906575550}
+  portalPrefab: {fileID: 3979410262358607121, guid: 9089058fc3a81ba45b5259ec14c5f1ee, type: 3}
   pointsWoth: 20
   anim: {fileID: 4142264701165923178}
   attackPosition: {fileID: 3504875920197835042}
