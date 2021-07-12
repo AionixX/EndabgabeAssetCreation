@@ -3,7 +3,17 @@ guid: 6e9916a969920e148989b4f106e45b7c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Arc
+    second: {fileID: 2100000, guid: e89ac4c485981f14ab0991047b222da4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BottomLight
+    second: {fileID: 2100000, guid: 72fd747664b673843bb66df5b5e4bc86, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
