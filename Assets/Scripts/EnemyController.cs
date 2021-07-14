@@ -69,6 +69,7 @@ public class EnemyController : MonoBehaviour
         actualCooldown -= Time.deltaTime;
         actualResetCooldown -= Time.deltaTime;
 
+        controller.Move(Physics.gravity * Time.deltaTime);
     }
 
     public void TakePlayer(PlayerController _player) {
