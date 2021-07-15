@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int maxLives = 3;
     [SerializeField] float explosionRadius = 3;
     [SerializeField] float explosionForce = 1000f;
+    [SerializeField] ForceFieldController forceFieldPrefab;
+    [SerializeField] Transform forcieFieldSpawn;
+    [SerializeField] float forceFieldSpeed = 6;
+    [SerializeField] float forceFieldLifetime = 5;
     [SerializeField] float movementThreshold = 0.1f;
     [SerializeField] float speed;
     [SerializeField] float smoothSpeedTime;
@@ -69,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetFloat("hammerCastTime", actualHammerCastTime);
         anim.SetFloat("arcCastTime", actualArcCastTime);
+        
 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
 
@@ -141,17 +146,20 @@ public class PlayerController : MonoBehaviour
         if (!IsAlive) return;
 
         livesLeft--;
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, explosionRadius, Vector3.one, explosionRadius, 1 << enemyLayer);
-        foreach (RaycastHit hit in hits)
-        {
-            hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
-        }
 
         if (livesLeft <= 0)
         {
             GameManager.instance.EndGame();
             anim.SetTrigger("die");
+            return;
         }
+
+        if(forceFieldPrefab) {
+            ForceFieldController force = Instantiate(forceFieldPrefab, forcieFieldSpawn.position, Quaternion.identity);
+            force.Init(forceFieldSpeed, forceFieldLifetime);
+        }
+
+
     }
     public void HammerCast()
     {

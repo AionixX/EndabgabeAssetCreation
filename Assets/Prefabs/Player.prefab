@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2500297187643973807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253019121409031799}
+  m_Layer: 7
+  m_Name: ForceFieldSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &253019121409031799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500297187643973807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7933539668389739485}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7933539666879045549
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +123,7 @@ Transform:
   - {fileID: 8198914837819570647}
   - {fileID: 7933539666879045554}
   - {fileID: 7933539666939988742}
+  - {fileID: 253019121409031799}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -115,6 +146,10 @@ MonoBehaviour:
   maxLives: 3
   explosionRadius: 3
   explosionForce: 1000
+  forceFieldPrefab: {fileID: 6195883511173358769, guid: 81284578f52ed314faadad90cf0ae028, type: 3}
+  forcieFieldSpawn: {fileID: 253019121409031799}
+  forceFieldSpeed: 250
+  forceFieldLifetime: 0.8
   movementThreshold: 0.1
   speed: 12
   smoothSpeedTime: 0.07

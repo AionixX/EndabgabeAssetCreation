@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    [SerializeField] PlayerController player = null;
+    [SerializeField] public PlayerController player = null;
     [SerializeField] GameObject gameCanvas = null;
     [SerializeField] GameObject pauseCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
+    [SerializeField] float openGameOverTime = 2f;
     [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
     [SerializeField] List<EnemyController> enemyPrefabs = new List<EnemyController>();
@@ -20,8 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float instantiateTimeLoss = 0.05f;
     [SerializeField] float instantiateTimeMin = 0.2f;
 
+    public bool gamePaused = false;
     private List<GameObject> enemys = new List<GameObject>();
-    bool gamePaused = false;
     float instantiateTime = 2f;
     float actualInstantiateTimer = 0f;
 
@@ -45,9 +46,6 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
             PauseGame();
             
-        // if (!gamePaused)
-        //     LockCursor();
-
         actualInstantiateTimer -= Time.deltaTime;
         if(actualInstantiateTimer <= 0f)
             SpawnEnemy();
@@ -66,6 +64,12 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+
+        gameOverCanvas.SetActive(false);
+        pauseCanvas.SetActive(false);
+
+        gamePaused = false;
+
         Time.timeScale = 1f;
         instantiateTime = instantiateStartTime;
         player.StartGame();
@@ -93,9 +97,10 @@ public class GameManager : MonoBehaviour
 
     public void EndGame() {
         gamePaused = true;
-        gameOverCanvas.SetActive(true);
         gameOverScoreText.text = player.score.ToString();
         UnlockCursor();
+
+        StartCoroutine(OpenGameOverScreen());
     }
 
     public void LoadScene(String _name) {
@@ -125,5 +130,10 @@ public class GameManager : MonoBehaviour
     private EnemyController GetRandomEnemy() {
         int rnd = UnityEngine.Random.Range(0, enemyPrefabs.Count);
         return enemyPrefabs[rnd];
+    }
+
+    IEnumerator OpenGameOverScreen() {
+        yield return new WaitForSeconds(openGameOverTime);
+        gameOverCanvas.SetActive(true);
     }
 }
