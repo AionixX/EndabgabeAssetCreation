@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
         get { return livesLeft > 0f; }
     }
 
+    [SerializeField] bool activeOnStart;
     [SerializeField] CharacterController controller;
     [SerializeField] Animator anim;
     [SerializeField] Transform cam;
@@ -56,9 +57,14 @@ public class PlayerController : MonoBehaviour
     public float actualHammerCastTime = 0f;
     public float actualArcCastTime = 0f;
 
+    void Start()
+    {
+        isActive = activeOnStart;
+        livesLeft = maxLives;
+    }
+
     public void StartGame()
     {
-        livesLeft = maxLives;
         isActive = true;
     }
 

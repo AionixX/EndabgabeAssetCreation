@@ -7,6 +7,8 @@ public class ArcController : MonoBehaviour
     [SerializeField] GameObject diePrefab = null;
     [SerializeField] GameObject collidePrefab = null;
     [SerializeField] int enemyLayer = 8;
+    [SerializeField] float explosionForce = 1000f;
+    // [SerializeField] float explosionRadius = 10f;
     float speed;
     float lifeTime;
     float explosionRadius;
@@ -46,7 +48,6 @@ public class ArcController : MonoBehaviour
             {
                 hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
             }
-            // hit.collider.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
         }
 
 

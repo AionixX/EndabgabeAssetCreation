@@ -8,10 +8,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    [SerializeField] bool startGameOnAwake = true;
     [SerializeField] public PlayerController player = null;
     [SerializeField] GameObject gameCanvas = null;
     [SerializeField] GameObject pauseCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
+    [SerializeField] GameObject startGameHintText = null;
     [SerializeField] float openGameOverTime = 2f;
     [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float instantiateTimeLoss = 0.05f;
     [SerializeField] float instantiateTimeMin = 0.2f;
 
-    public bool gamePaused = false;
+    public bool gamePaused = true;
     private List<GameObject> enemys = new List<GameObject>();
     float instantiateTime = 2f;
     float actualInstantiateTimer = 0f;
@@ -35,13 +37,21 @@ public class GameManager : MonoBehaviour
         }
         GameManager.instance = this;
 
-        
-        StartGame();
+        gamePaused = true;
+
+        if(startGameOnAwake) StartGame();
     }
 
     void Update()
     {
-        if(gamePaused) return;
+
+        if(gamePaused) {
+            if(Input.GetKeyDown(KeyCode.KeypadEnter)) {
+                startGameHintText.SetActive(false);
+                StartGame();
+            }
+            return;
+        }
 
         if(Input.GetKeyDown(KeyCode.Escape))
             PauseGame();
