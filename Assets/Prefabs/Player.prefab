@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154b41ff5b6a03548bca3d62c4f9903b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeOnStart: 1
   controller: {fileID: 7933539668389739490}
   anim: {fileID: 7933539666602437470}
   cam: {fileID: 0}
@@ -1540,15 +1541,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 16742991005532673, guid: 959da1595fb815449a38a6f1e528da43, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.085
       objectReference: {fileID: 0}
     - target: {fileID: 16742991005532673, guid: 959da1595fb815449a38a6f1e528da43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.061
       objectReference: {fileID: 0}
     - target: {fileID: 16742991005532673, guid: 959da1595fb815449a38a6f1e528da43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 16742991005532673, guid: 959da1595fb815449a38a6f1e528da43, type: 3}
       propertyPath: m_LocalRotation.w

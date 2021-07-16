@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2141700739609374195
 Transform:
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0, g: 0.8962264, b: 0.87830555, a: 1}
-  m_Intensity: 2
+  m_Intensity: 5
   m_Range: 5
   m_SpotAngle: 144.32353
   m_InnerSpotAngle: 142.86711
@@ -850,6 +850,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -4.2689934
       objectReference: {fileID: 0}
+    - target: {fileID: 5613815499662603714, guid: 4bc773afd4e504e4fa29e1b69293f719, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 793a22c0d3014f2458bb83bb4b496b8a, type: 2}
     - target: {fileID: 5636239259058312632, guid: 4bc773afd4e504e4fa29e1b69293f719, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 17.22521

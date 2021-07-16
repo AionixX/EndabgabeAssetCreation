@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    [SerializeField] bool startGameOnAwake = true;
     [SerializeField] public PlayerController player = null;
     [SerializeField] GameObject gameCanvas = null;
     [SerializeField] GameObject pauseCanvas = null;
@@ -37,27 +36,18 @@ public class GameManager : MonoBehaviour
         }
         GameManager.instance = this;
 
-        gamePaused = true;
-
-        if(startGameOnAwake) StartGame();
+        StartGame();
     }
 
     void Update()
     {
+        if (gamePaused) return;
 
-        if(gamePaused) {
-            if(Input.GetKeyDown(KeyCode.KeypadEnter)) {
-                startGameHintText.SetActive(false);
-                StartGame();
-            }
-            return;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
             PauseGame();
-            
+
         actualInstantiateTimer -= Time.deltaTime;
-        if(actualInstantiateTimer <= 0f)
+        if (actualInstantiateTimer <= 0f)
             SpawnEnemy();
     }
 
@@ -67,19 +57,21 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void UnlockCursor() {
+    void UnlockCursor()
+    {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     public void StartGame()
     {
+        LockCursor();
 
         gameOverCanvas.SetActive(false);
         pauseCanvas.SetActive(false);
+        startGameHintText.SetActive(false);
 
         gamePaused = false;
-
         Time.timeScale = 1f;
         instantiateTime = instantiateStartTime;
         player.StartGame();
@@ -88,24 +80,26 @@ public class GameManager : MonoBehaviour
         {
             SpawnEnemy();
         }
-        LockCursor();
     }
 
-    public void PauseGame() {
+    public void PauseGame()
+    {
         pauseCanvas.SetActive(true);
         gamePaused = true;
         Time.timeScale = 0f;
         UnlockCursor();
     }
 
-    public void ResumeGame() {
+    public void ResumeGame()
+    {
         pauseCanvas.SetActive(false);
         gamePaused = false;
         Time.timeScale = 1f;
         LockCursor();
     }
 
-    public void EndGame() {
+    public void EndGame()
+    {
         gamePaused = true;
         gameOverScoreText.text = player.score.ToString();
         UnlockCursor();
@@ -113,11 +107,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(OpenGameOverScreen());
     }
 
-    public void LoadScene(String _name) {
-        SceneManager.LoadSceneAsync(_name, LoadSceneMode.Single);
+    public void LoadScene(String _name)
+    {
+        ResumeGame();
+        SceneManager.LoadSceneAsync(_name);
     }
 
-    public void EnemyDied() {
+    public void EnemyDied()
+    {
         instantiateTime = Mathf.Clamp(instantiateTime - instantiateTimeLoss, instantiateTimeMin, float.MaxValue);
     }
 
@@ -137,12 +134,14 @@ public class GameManager : MonoBehaviour
         return enemySpawnPoints[rnd].position;
     }
 
-    private EnemyController GetRandomEnemy() {
+    private EnemyController GetRandomEnemy()
+    {
         int rnd = UnityEngine.Random.Range(0, enemyPrefabs.Count);
         return enemyPrefabs[rnd];
     }
 
-    IEnumerator OpenGameOverScreen() {
+    IEnumerator OpenGameOverScreen()
+    {
         yield return new WaitForSeconds(openGameOverTime);
         gameOverCanvas.SetActive(true);
     }

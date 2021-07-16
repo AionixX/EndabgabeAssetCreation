@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetFloat("hammerCastTime", actualHammerCastTime);
         anim.SetFloat("arcCastTime", actualArcCastTime);
-        
+
 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
 
@@ -133,9 +133,11 @@ public class PlayerController : MonoBehaviour
             desiredMoveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
         }
+
         desiredMoveDir = Vector3.Lerp(lastMoveDir, desiredMoveDir, smoothSpeedTime);
 
         controller.Move(transform.forward * desiredMoveDir.magnitude * speed * Time.deltaTime);
+
         anim.SetFloat("velocity", desiredMoveDir.magnitude * speed);
 
         lastMoveDir = desiredMoveDir;
@@ -160,7 +162,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if(forceFieldPrefab) {
+        if (forceFieldPrefab)
+        {
             ForceFieldController force = Instantiate(forceFieldPrefab, forcieFieldSpawn.position, Quaternion.identity);
             force.Init(forceFieldSpeed, forceFieldLifetime);
         }

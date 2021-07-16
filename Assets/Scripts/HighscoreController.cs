@@ -19,6 +19,7 @@ public class HighscoreController : MonoBehaviour
     [SerializeField] string highScorePath = "highscoreList";
     [SerializeField] string nullNameText = "No highscore yet";
     [SerializeField] string nullScoreText = "-";
+    [SerializeField] bool loadOnStart = true;
     [SerializeField] bool deleteOnStart = false;
     [SerializeField] int maxScores = 5;
     [SerializeField] TMP_InputField inputField;
@@ -31,6 +32,7 @@ public class HighscoreController : MonoBehaviour
     void Start()
     {
         if (deleteOnStart) SimpleDataLoader.DeleteData(highScorePath);
+        if(!loadOnStart) return;
         LoadList();
     }
 
@@ -43,8 +45,6 @@ public class HighscoreController : MonoBehaviour
             highScoreList = new List<Score>();
             SaveList();
         }
-        Debug.Log(highScoreList);
-
         UpdateUI();
     }
 

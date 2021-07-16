@@ -46,7 +46,6 @@ public class ForceFieldController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other){
-        Debug.Log("OnTriggerEnter " + other.name);
         if (other.gameObject.layer == enemyLayer){
             other.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
         }
