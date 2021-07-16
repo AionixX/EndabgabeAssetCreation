@@ -3,12 +3,7 @@ guid: 8dd5601cf9c416d4382c9f8db8c1d2c6
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Blockade
-    second: {fileID: 2100000, guid: 0215ac13504cd44438f8927118c62883, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
