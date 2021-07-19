@@ -6,8 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] PlayerController player = null;
     [SerializeField] CharacterController controller = null;
-    [SerializeField] Collider collider =null;
-    [SerializeField] public GameObject portalPrefab = null; 
+    [SerializeField] Collider collider = null;
+    [SerializeField] public GameObject portalPrefab = null;
     [SerializeField] int pointsWoth = 20;
     [SerializeField] Animator anim;
     [SerializeField] Transform attackPosition = null;
@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if(!isActive) return;
+        if (!isActive) return;
         if (isAttacking)
         {
             actualAttackCastTime += Time.deltaTime;
@@ -53,12 +53,17 @@ public class EnemyController : MonoBehaviour
             }
 
         }
+        controller.Move(Physics.gravity * Time.deltaTime);
+
+        // if(GameManager.instance.gamePaused)  {
+        //     anim.SetFloat("velocity", 0f);
+        //     return;
+        // }
 
         Vector3 dir = player.transform.position - transform.position;
 
         if (dir.magnitude > stopDistance)
         {
-
             Move((player.transform.position - transform.position).normalized);
         }
         else if (actualCooldown <= 0f)
@@ -69,16 +74,18 @@ public class EnemyController : MonoBehaviour
         actualCooldown -= Time.deltaTime;
         actualResetCooldown -= Time.deltaTime;
 
-        controller.Move(Physics.gravity * Time.deltaTime);
     }
 
-    public void TakePlayer(PlayerController _player) {
+    public void TakePlayer(PlayerController _player)
+    {
         player = _player;
         isActive = true;
     }
 
-    public void Move(Vector3 _dir)
+    public void Move(Vector3 _dir, bool _animate = true)
     {
+        if (GameManager.instance.gamePaused) _dir = Vector3.zero;
+        
         Vector3 desiredMoveDir = _dir;
         if (_dir.magnitude >= movementThreshold)
         {
@@ -91,7 +98,8 @@ public class EnemyController : MonoBehaviour
 
         desiredMoveDir = Vector3.Lerp(lastMoveDir, desiredMoveDir, smoothSpeedTime);
         controller.Move(transform.forward * desiredMoveDir.magnitude * speed * Time.deltaTime);
-        anim.SetFloat("velocity", desiredMoveDir.magnitude * speed);
+        if (_animate)
+            anim.SetFloat("velocity", desiredMoveDir.magnitude * speed);
 
         lastMoveDir = desiredMoveDir;
     }
@@ -115,7 +123,8 @@ public class EnemyController : MonoBehaviour
 
         for (int i = 0; i < hit.Length; i++)
         {
-            if (hit[i].collider.gameObject == player.gameObject) {
+            if (hit[i].collider.gameObject == player.gameObject)
+            {
                 player.GetHit();
                 return;
             }
@@ -132,7 +141,8 @@ public class EnemyController : MonoBehaviour
         actualResetCooldown = attackReset;
     }
 
-    public void Die() {
+    public void Die()
+    {
         player.AddScore(pointsWoth);
         anim.SetTrigger("die");
         isActive = false;

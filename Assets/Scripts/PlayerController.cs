@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public bool IsAlive
     {
         private set { }
-        get { return livesLeft > 0f; }
+        get { return livesLeft > 0; }
     }
 
     [SerializeField] bool activeOnStart;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float explosionRadius = 3;
     [SerializeField] float explosionForce = 1000f;
     [SerializeField] ForceFieldController forceFieldPrefab;
-    [SerializeField] Transform forcieFieldSpawn;
+    [SerializeField] Transform forceFieldSpawn;
     [SerializeField] float forceFieldSpeed = 6;
     [SerializeField] float forceFieldLifetime = 5;
     [SerializeField] float movementThreshold = 0.1f;
@@ -70,12 +70,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!isActive || !IsAlive) return;
+        if (!isActive || !IsAlive || GameManager.instance.gamePaused) return;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         bool castHammerInput = Input.GetMouseButton(1);
         bool castArcInput = Input.GetMouseButton(0);
+
+        if(GameManager.instance.gamePaused) {
+            horizontal = 0f;
+            vertical = 0f;
+            Move(Vector3.zero);
+        }
 
         anim.SetFloat("hammerCastTime", actualHammerCastTime);
         anim.SetFloat("arcCastTime", actualArcCastTime);
@@ -83,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 dir = new Vector3(horizontal, 0f, vertical);
 
-        if (castHammerInput)
+        if (castHammerInput && !GameManager.instance.gamePaused)
         {
             HammerCast();
             return;
@@ -94,7 +100,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (castArcInput)
+        if (castArcInput && !GameManager.instance.gamePaused)
         {
             ArcCast();
             return;
@@ -164,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
         if (forceFieldPrefab)
         {
-            ForceFieldController force = Instantiate(forceFieldPrefab, forcieFieldSpawn.position, Quaternion.identity);
+            ForceFieldController force = Instantiate(forceFieldPrefab, forceFieldSpawn.position, Quaternion.identity);
             force.Init(forceFieldSpeed, forceFieldLifetime);
         }
 
