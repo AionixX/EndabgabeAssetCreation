@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float explosionForce = 1000f;
     [SerializeField] ForceFieldController forceFieldPrefab;
     [SerializeField] Transform forceFieldSpawn;
+    [SerializeField] float forceFieldSpawnTime = 0.3f;
     [SerializeField] float forceFieldSpeed = 6;
+    [SerializeField] float forceFieldMovementBlocked = 1f;
     [SerializeField] float forceFieldLifetime = 5;
     [SerializeField] float movementThreshold = 0.1f;
     [SerializeField] float speed;
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
     Vector3 lastMoveDir;
     bool movementBlocked = false;
     bool isHammerCasting = false;
+    public bool isForceFieldActive = false;
     bool isArcCasting = false;
     public float actualHammerCastTime = 0f;
     public float actualArcCastTime = 0f;
@@ -157,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetHit()
     {
-        if (!IsAlive) return;
+        if (!IsAlive && isForceFieldActive) return;
 
         livesLeft--;
 
@@ -168,14 +171,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (forceFieldPrefab)
-        {
-            ForceFieldController force = Instantiate(forceFieldPrefab, forceFieldSpawn.position, Quaternion.identity);
-            force.Init(forceFieldSpeed, forceFieldLifetime);
-        }
-
-
+        movementBlocked = true;
+        isForceFieldActive = true;
+        anim.SetTrigger("getHit");
+        StartCoroutine(WaitTillInstantiateForceAttack(forceFieldSpawnTime));
+        StartCoroutine(ResetMovementBlockedIn(forceFieldMovementBlocked));
     }
+
     public void HammerCast()
     {
         movementBlocked = true;
@@ -260,5 +262,16 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(_time);
         LightningController attack = Instantiate(hammerAttack, hammerSpawnPosition.position, transform.rotation).GetComponent<LightningController>();
         attack.Init(hammerDamage, Mathf.FloorToInt(lightningAmount * _multiplier), lightningDistance, lightningNextTime);
+    }
+
+    IEnumerator WaitTillInstantiateForceAttack(float _time = 0.1f)
+    {
+        yield return new WaitForSeconds(_time);
+        if (forceFieldPrefab)
+        {
+            ForceFieldController force = Instantiate(forceFieldPrefab, forceFieldSpawn.position, Quaternion.identity);
+            force.Init(forceFieldSpeed, forceFieldLifetime);
+        }
+        isForceFieldActive = false;
     }
 }

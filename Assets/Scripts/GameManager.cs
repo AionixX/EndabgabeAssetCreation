@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
     public void LoadScene(String _name)
     {
         ResumeGame();
+        UnlockCursor();
         SceneManager.LoadSceneAsync(_name);
     }
 
