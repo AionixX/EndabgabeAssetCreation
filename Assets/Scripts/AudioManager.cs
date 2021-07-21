@@ -12,6 +12,7 @@ namespace AudioManagement
     {
         public static AudioManager instance;
         public List<Sound> sounds = new List<Sound>();
+        public float masterVolume = 1f;
 
         void Awake()
         {
@@ -30,7 +31,7 @@ namespace AudioManagement
             {
                 sound.source = gameObject.AddComponent<AudioSource>();
                 sound.source.clip = sound.clip;
-                sound.source.volume = sound.volume;
+                sound.source.volume = sound.volume * masterVolume;
                 sound.source.pitch = sound.pitch;
                 sound.source.loop = sound.loop;
                 if (sound.playOnAwake)
@@ -66,9 +67,21 @@ namespace AudioManagement
         public void SetVolume(string _name, float _volume) {
             Sound sound = sounds.Find(sounds => sounds.name == _name);
             if (sound != null)
-                sound.source.volume = _volume;
+                sound.volume = _volume;
             else
                 Debug.LogError("No sound with name " + _name + " exists.");
+
+            UpdateVolumes();
+        }
+
+        public void SetMasterVolume(float _volume) {
+            masterVolume = _volume;
+            UpdateVolumes();
+        }
+
+        public void UpdateVolumes() {
+            foreach (Sound sound in sounds)
+                sound.source.volume = sound.volume * masterVolume;
         }
     }
 }

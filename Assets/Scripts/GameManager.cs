@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using AudioManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
     [SerializeField] GameObject startGameHintText = null;
+    [SerializeField] Slider volumeSlider = null;
     [SerializeField] float openGameOverTime = 2f;
     [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
         }
         GameManager.instance = this;
         gamePaused = false;
+        ChangeMasterVolume();
 
         // StartGame();
     }
@@ -164,6 +167,10 @@ public class GameManager : MonoBehaviour
         EnemyController newEnemy = Instantiate(enemy, rndPos, Quaternion.identity);
         newEnemy.TakePlayer(player);
         actualInstantiateTimer = instantiateTime;
+    }
+
+    public void ChangeMasterVolume() {
+        AudioManager.instance.SetMasterVolume(volumeSlider.value);
     }
 
     private Vector3 GetRandomSpawnPosition()
