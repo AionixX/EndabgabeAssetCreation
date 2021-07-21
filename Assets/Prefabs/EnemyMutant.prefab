@@ -171,9 +171,9 @@ MonoBehaviour:
   movementThreshold: 0.1
   smoothSpeedTime: 0.05
   turnSmoothTime: 0.1
-  speed: 3
-  attackTime: 1
-  attackCooldown: 2
+  speed: 5
+  attackTime: 0.5
+  attackCooldown: 1
   attackReset: 0.5
   damage: 10
 --- !u!136 &5800439113591415602

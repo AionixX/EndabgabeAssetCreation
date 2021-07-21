@@ -15246,7 +15246,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312923568}
-  m_LocalRotation: {x: 0.16363993, y: 0.000000008487221, z: -0.0000000014078252, w: 0.9865202}
+  m_LocalRotation: {x: 0.16363993, y: -0.000000008487222, z: 0.0000000014078255, w: 0.9865202}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15501,7 +15501,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326160436}
-  m_LocalRotation: {x: 0.13740796, y: 0.000000019599646, z: -0.0000000027189377, w: 0.99051464}
+  m_LocalRotation: {x: 0.13740796, y: -0.000000019599646, z: 0.0000000027189377, w: 0.99051464}
   m_LocalPosition: {x: 18.121685, y: 59.622105, z: 71.77439}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -20355,7 +20355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 444fea0b86ba28b4eb2cd5402a877452, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 56
+      value: 56.15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 444fea0b86ba28b4eb2cd5402a877452, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23809,7 +23809,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085900039}
-  m_LocalRotation: {x: 0.096671686, y: 0.000000008562896, z: -8.3168483e-10, w: 0.9953163}
+  m_LocalRotation: {x: 0.096671686, y: -0.000000008562897, z: 8.3168494e-10, w: 0.9953163}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -24545,8 +24545,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7933539668389739491, guid: 487fb1998baa2fc4c98d341b596eae1d, type: 3}
+      propertyPath: arcLifetime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933539668389739491, guid: 487fb1998baa2fc4c98d341b596eae1d, type: 3}
       propertyPath: activeOnStart
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933539668389739491, guid: 487fb1998baa2fc4c98d341b596eae1d, type: 3}
+      propertyPath: hammerCastTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7933539668389739491, guid: 487fb1998baa2fc4c98d341b596eae1d, type: 3}
       propertyPath: forceFieldSpawn
