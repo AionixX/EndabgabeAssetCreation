@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] PlayerController player = null;
     [SerializeField] CharacterController controller = null;
-    [SerializeField] Collider collider = null;
+    [SerializeField] new Collider collider = null;
     [SerializeField] public GameObject portalPrefab = null;
     [SerializeField] int pointsWoth = 20;
     [SerializeField] Animator anim;

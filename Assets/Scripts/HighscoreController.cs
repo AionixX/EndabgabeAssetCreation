@@ -39,6 +39,7 @@ public class HighscoreController : MonoBehaviour
     void LoadList()
     {
         highScoreList = SimpleDataLoader.LoadData<List<Score>>(highScorePath);
+        // dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow();
 
         if (highScoreList == null)
         {

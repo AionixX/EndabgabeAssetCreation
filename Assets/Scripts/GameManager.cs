@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using AudioManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         if (GameManager.instance)
         {
             Debug.LogError("Already found an instance of GameManager!");
@@ -83,8 +85,15 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void PlaySound(string _soundName) {
+        AudioManager.instance.Play(_soundName);
+    }
+
     public void StartGame()
     {
+        AudioManager.instance.Play("Game");
+        AudioManager.instance.Pause("Menu");
+
         LockCursor();
         baseCameraSpeedX = playerCam.m_XAxis.m_MaxSpeed;
         baseCameraSpeedY = playerCam.m_YAxis.m_MaxSpeed;
