@@ -4192,7 +4192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &363590845 stripped
 GameObject:
@@ -4598,7 +4598,7 @@ Transform:
   - {fileID: 69831457}
   - {fileID: 595438880}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421874163
 GameObject:
@@ -8050,7 +8050,7 @@ Transform:
   - {fileID: 1898742583}
   - {fileID: 1625431570}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &715313484
 Rigidbody:
@@ -12842,7 +12842,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1101258350}
   - component: {fileID: 1101258349}
-  - component: {fileID: 1101258351}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -12908,40 +12907,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1101258351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1101258348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8500ff2142778f48bcc3c45d7844b8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Menu
-    clip: {fileID: 8300000, guid: 4a2766c579c97f344bbabc44b89b0c2c, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    playOnAwake: 1
-    source: {fileID: 0}
-  - name: Game
-    clip: {fileID: 8300000, guid: f1c4c82d1275643408e932a7875a0dd8, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 1
-    playOnAwake: 0
-    source: {fileID: 0}
-  - name: Click
-    clip: {fileID: 8300000, guid: 6ce21780a9db37b448d21bbbe87d5d63, type: 3}
-    volume: 1
-    pitch: 0.1
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
 --- !u!1 &1101304847
 GameObject:
   m_ObjectHideFlags: 0
@@ -14242,7 +14207,7 @@ Transform:
   - {fileID: 976901448}
   - {fileID: 1958224606}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1260927362
 MonoBehaviour:
@@ -14251,7 +14216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260927360}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdd81d0bd5b775f4cb66c70163eb332b, type: 3}
   m_Name: 
@@ -15953,7 +15918,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1396793557 stripped
 GameObject:
@@ -17718,6 +17683,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538597095}
   m_CullTransparentMesh: 1
+--- !u!1 &1541049832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541049834}
+  - component: {fileID: 1541049833}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1541049833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541049832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8500ff2142778f48bcc3c45d7844b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Menu
+    clip: {fileID: 8300000, guid: 4a2766c579c97f344bbabc44b89b0c2c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    playOnAwake: 1
+    source: {fileID: 0}
+  - name: Game
+    clip: {fileID: 8300000, guid: f1c4c82d1275643408e932a7875a0dd8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Click
+    clip: {fileID: 8300000, guid: 6ce21780a9db37b448d21bbbe87d5d63, type: 3}
+    volume: 1
+    pitch: 0.1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+--- !u!4 &1541049834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541049832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 132.88708, y: 7.859015, z: 5.7658086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545639145
 GameObject:
   m_ObjectHideFlags: 0
@@ -18496,7 +18526,7 @@ Transform:
   m_Children:
   - {fileID: 1113348255}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600313700
 GameObject:
@@ -20528,7 +20558,7 @@ Transform:
   m_Children:
   - {fileID: 705507995}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1762139989
 PrefabInstance:

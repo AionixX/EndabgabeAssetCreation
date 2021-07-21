@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetHit()
     {
-        if (!IsAlive && isForceFieldActive) return;
+        if (!IsAlive || isForceFieldActive) return;
 
         livesLeft--;
 
