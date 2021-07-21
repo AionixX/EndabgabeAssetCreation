@@ -44,7 +44,7 @@ public class HighscoreController : MonoBehaviour
             highScoreList = new List<Score>();
             SaveList();
         }
-
+        
         UpdateUI();
     }
 
@@ -66,22 +66,13 @@ public class HighscoreController : MonoBehaviour
     public void Submit()
     {
         if (inputField.text == "") return;
-        // Debug.Log(inputField.text);
 
         Score newScore = new Score();
         newScore.name = inputField.text;
         newScore.score = GameManager.instance.player.score;
 
-        // Debug.Log(newScore.name + " " + newScore.score);
-
-        // foreach (Score score in highScoreList)
-        // {
-        //     Debug.Log(score.name + ":" + score.score);
-        // }
-
         highScoreList.Add(newScore);
-        // highScoreList.RemoveAll(x => x.score == 0);
-
+        highScoreList.RemoveAll(x => x.score == 0);
 
 
         highScoreList.Sort((x, y) => y.score.CompareTo(x.score));
@@ -89,6 +80,8 @@ public class HighscoreController : MonoBehaviour
             highScoreList.RemoveRange(maxScores, highScoreList.Count - maxScores);
 
         SaveList();
+
+        inputField.gameObject.SetActive(false);
     }
 
 }

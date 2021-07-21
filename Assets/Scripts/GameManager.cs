@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public CinemachineFreeLook playerCam = null;
     [SerializeField] GameObject menuCanvas = null;
     [SerializeField] GameObject gameCanvas = null;
-    [SerializeField] GameObject pauseCanvas = null;
+    [SerializeField] GameObject menuButtons = null;
+    [SerializeField] GameObject pauseButtons = null;
+    // [SerializeField] GameObject pauseCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
     [SerializeField] Slider volumeSliderMusic = null;
     [SerializeField] Slider volumeSliderSFX = null;
@@ -101,7 +103,9 @@ public class GameManager : MonoBehaviour
         baseCameraSpeedY = playerCam.m_YAxis.m_MaxSpeed;
 
         gameOverCanvas.SetActive(false);
-        pauseCanvas.SetActive(false);
+        menuButtons.SetActive(false);
+        pauseButtons.SetActive(false);
+        // pauseCanvas.SetActive(false);
         menuCanvas.SetActive(false);
 
         gameCanvas.SetActive(true);
@@ -120,7 +124,9 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        pauseCanvas.SetActive(true);
+        // pauseCanvas.SetActive(true);
+        menuCanvas.SetActive(true);
+        pauseButtons.SetActive(true);
         gameCanvas.SetActive(false);
         gamePaused = true;
         // Time.timeScale = 0f;
@@ -129,7 +135,9 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseCanvas.SetActive(false);
+        // pauseCanvas.SetActive(false);
+        menuCanvas.SetActive(false);
+        pauseButtons.SetActive(false);
         gameCanvas.SetActive(true);
         gamePaused = false;
         // Time.timeScale = 1f;
@@ -190,6 +198,9 @@ public class GameManager : MonoBehaviour
     IEnumerator OpenGameOverScreen()
     {
         yield return new WaitForSeconds(openGameOverTime);
+        menuCanvas.SetActive(false);
+        menuButtons.SetActive(false);
+        pauseButtons.SetActive(false);
         gameOverCanvas.SetActive(true);
     }
 }
