@@ -12,7 +12,8 @@ namespace AudioManagement
     {
         public static AudioManager instance;
         public List<Sound> sounds = new List<Sound>();
-        public float masterVolume = 1f;
+        public float masterVolumeMusic = 1f;
+        public float masterVolumeSFX = 1f;
 
         void Awake()
         {
@@ -31,7 +32,7 @@ namespace AudioManagement
             {
                 sound.source = gameObject.AddComponent<AudioSource>();
                 sound.source.clip = sound.clip;
-                sound.source.volume = sound.volume * masterVolume;
+                sound.source.volume = sound.volume * (sound.type == AudioType.MUSIC ? masterVolumeMusic : masterVolumeSFX);
                 sound.source.pitch = sound.pitch;
                 sound.source.loop = sound.loop;
                 if (sound.playOnAwake)
@@ -48,7 +49,8 @@ namespace AudioManagement
                 Debug.LogError("No sound with name " + _name + " exists.");
         }
 
-        public void Pause(string _name) {
+        public void Pause(string _name)
+        {
             Sound sound = sounds.Find(sounds => sounds.name == _name);
             if (sound != null)
                 sound.source.Pause();
@@ -56,7 +58,8 @@ namespace AudioManagement
                 Debug.LogError("No sound with name " + _name + " exists.");
         }
 
-        public void Stop(string _name) {
+        public void Stop(string _name)
+        {
             Sound sound = sounds.Find(sounds => sounds.name == _name);
             if (sound != null)
                 sound.source.Stop();
@@ -64,24 +67,34 @@ namespace AudioManagement
                 Debug.LogError("No sound with name " + _name + " exists.");
         }
 
-        public void SetVolume(string _name, float _volume) {
+        public void SetVolume(string _name, float _volume)
+        {
             Sound sound = sounds.Find(sounds => sounds.name == _name);
             if (sound != null)
                 sound.volume = _volume;
             else
                 Debug.LogError("No sound with name " + _name + " exists.");
 
-            UpdateVolumes();
+            UpdateVolumes(sound.type);
         }
 
-        public void SetMasterVolume(float _volume) {
-            masterVolume = _volume;
-            UpdateVolumes();
+        public void SetMasterVolume(float _volume, AudioType _type)
+        {
+            if (_type == AudioType.MUSIC)
+                masterVolumeMusic = _volume;
+            else
+                masterVolumeSFX = _volume;
+
+            UpdateVolumes(_type);
         }
 
-        public void UpdateVolumes() {
+        public void UpdateVolumes(AudioType _type)
+        {
             foreach (Sound sound in sounds)
-                sound.source.volume = sound.volume * masterVolume;
+            {
+                if (sound.type == _type)
+                    sound.source.volume = sound.volume * (sound.type == AudioType.MUSIC ? masterVolumeMusic : masterVolumeSFX);
+            }
         }
     }
 }

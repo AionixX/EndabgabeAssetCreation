@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
     [SerializeField] GameObject startGameHintText = null;
-    [SerializeField] Slider volumeSlider = null;
+    [SerializeField] Slider volumeSliderMusic = null;
+    [SerializeField] Slider volumeSliderSFX = null;
+    [SerializeField] Slider mouseSlider = null;
     [SerializeField] float openGameOverTime = 2f;
     [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
@@ -27,10 +29,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float instantiateStartTime = 3f;
     [SerializeField] float instantiateTimeLoss = 0.05f;
     [SerializeField] float instantiateTimeMin = 0.2f;
-    [SerializeField] float cameraSpeedMin = 0.8f;
-    [SerializeField] float cameraSpeedMax = 1.5f;
-    [SerializeField] float cameraSpeedChange = 1f;
-    [SerializeField] float cameraSpeed = 1f;
 
     public bool gamePaused = false;
     public bool gameStarted = false;
@@ -50,16 +48,19 @@ public class GameManager : MonoBehaviour
         }
         GameManager.instance = this;
         gamePaused = false;
-        ChangeMasterVolume();
+
+        baseCameraSpeedX = playerCam.m_XAxis.m_MaxSpeed;
+        baseCameraSpeedY = playerCam.m_YAxis.m_MaxSpeed;
+
+        ChangeMasterVolumeMusic();
+        ChangeMasterVolumeSFX();
+        UpdateCameraSpeed();
 
         // StartGame();
     }
 
     void Update()
     {
-        if(Input.mouseScrollDelta.y != 0)
-            UpdateCameraSpeed(Input.mouseScrollDelta.y);
-
         if (!gameStarted) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -70,10 +71,9 @@ public class GameManager : MonoBehaviour
             SpawnEnemy();
     }
 
-    void UpdateCameraSpeed(float _scrollDelta) {
-        cameraSpeed = Mathf.Clamp((cameraSpeed + (_scrollDelta * cameraSpeedChange)), cameraSpeedMin, cameraSpeedMax);
-        playerCam.m_XAxis.m_MaxSpeed = cameraSpeed * baseCameraSpeedX;
-        playerCam.m_YAxis.m_MaxSpeed = cameraSpeed * baseCameraSpeedY;
+    void UpdateCameraSpeed() {
+        playerCam.m_XAxis.m_MaxSpeed = mouseSlider.value * baseCameraSpeedX;
+        playerCam.m_YAxis.m_MaxSpeed = mouseSlider.value * baseCameraSpeedY;
     }
 
     void LockCursor()
@@ -169,8 +169,12 @@ public class GameManager : MonoBehaviour
         actualInstantiateTimer = instantiateTime;
     }
 
-    public void ChangeMasterVolume() {
-        AudioManager.instance.SetMasterVolume(volumeSlider.value);
+    public void ChangeMasterVolumeMusic() {
+        AudioManager.instance.SetMasterVolume(volumeSliderMusic.value, AudioManagement.AudioType.MUSIC);
+    }
+
+    public void ChangeMasterVolumeSFX() {
+        AudioManager.instance.SetMasterVolume(volumeSliderSFX.value, AudioManagement.AudioType.SFX);
     }
 
     private Vector3 GetRandomSpawnPosition()
