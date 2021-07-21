@@ -28,24 +28,23 @@ public class HighscoreController : MonoBehaviour
     [SerializeField] List<TMP_Text> scoreList;
     List<Score> highScoreList = new List<Score>();
 
-    // Start is called before the first frame update
     void Start()
     {
         if (deleteOnStart) SimpleDataLoader.DeleteData(highScorePath);
-        if(!loadOnStart) return;
+        if (!loadOnStart) return;
         LoadList();
     }
 
     void LoadList()
     {
         highScoreList = SimpleDataLoader.LoadData<List<Score>>(highScorePath);
-        // dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow();
 
         if (highScoreList == null)
         {
             highScoreList = new List<Score>();
             SaveList();
         }
+
         UpdateUI();
     }
 
@@ -67,17 +66,24 @@ public class HighscoreController : MonoBehaviour
     public void Submit()
     {
         if (inputField.text == "") return;
-        Debug.Log(inputField.text);
+        // Debug.Log(inputField.text);
 
         Score newScore = new Score();
         newScore.name = inputField.text;
         newScore.score = GameManager.instance.player.score;
 
-        Debug.Log(newScore.name + " " + newScore.score);
+        // Debug.Log(newScore.name + " " + newScore.score);
+
+        // foreach (Score score in highScoreList)
+        // {
+        //     Debug.Log(score.name + ":" + score.score);
+        // }
 
         highScoreList.Add(newScore);
-        highScoreList.RemoveAll(x => x.score == 0);
-        
+        // highScoreList.RemoveAll(x => x.score == 0);
+
+
+
         highScoreList.Sort((x, y) => y.score.CompareTo(x.score));
         if (highScoreList.Count > maxScores)
             highScoreList.RemoveRange(maxScores, highScoreList.Count - maxScores);

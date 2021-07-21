@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ArcBackground
+  m_Name: ArcCast
   m_Shader: {fileID: -6465566751694194690, guid: 93004c5633ec75247a26d5935374d866, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -38,5 +38,5 @@ Material:
     m_Floats:
     - Vector1_466aa6a648014986a866ba4ccfb22a98: 0
     m_Colors:
-    - Color_66d42400f3a04f2faeb3fd09b1928bbb: {r: 5.3403134, g: 0.19571829, b: 0.19571829, a: 0}
+    - Color_66d42400f3a04f2faeb3fd09b1928bbb: {r: 114.0758, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

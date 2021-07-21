@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
             SpawnEnemy();
     }
 
-    void UpdateCameraSpeed() {
+    public void UpdateCameraSpeed() {
         playerCam.m_XAxis.m_MaxSpeed = mouseSlider.value * baseCameraSpeedX;
         playerCam.m_YAxis.m_MaxSpeed = mouseSlider.value * baseCameraSpeedY;
     }
