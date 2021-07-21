@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameCanvas = null;
     [SerializeField] GameObject pauseCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
-    [SerializeField] GameObject startGameHintText = null;
     [SerializeField] Slider volumeSliderMusic = null;
     [SerializeField] Slider volumeSliderSFX = null;
     [SerializeField] Slider mouseSlider = null;
@@ -103,7 +102,6 @@ public class GameManager : MonoBehaviour
 
         gameOverCanvas.SetActive(false);
         pauseCanvas.SetActive(false);
-        startGameHintText.SetActive(false);
         menuCanvas.SetActive(false);
 
         gameCanvas.SetActive(true);

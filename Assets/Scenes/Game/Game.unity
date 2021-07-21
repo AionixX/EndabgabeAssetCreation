@@ -5125,8 +5125,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17, y: -182}
-  m_SizeDelta: {x: 907.57, y: 490.39}
+  m_AnchoredPosition: {x: -216, y: 31.598}
+  m_SizeDelta: {x: 98.94, y: 63.195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426269780
 MonoBehaviour:
@@ -5211,7 +5211,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 172.45148, y: 0, z: 460.9418, w: 391.63956}
+  m_margin: {x: 0.0066642826, y: 0, z: 2.6392841, w: 1.6932411}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -13082,8 +13082,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 57, y: -47.99997}
-  m_SizeDelta: {x: 0, y: -95.99997}
+  m_AnchoredPosition: {x: 22.57, y: -40.58}
+  m_SizeDelta: {x: -68.87, y: -763.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1067064005
 PrefabInstance:
@@ -13205,7 +13205,6 @@ MonoBehaviour:
   gameCanvas: {fileID: 85991029}
   pauseCanvas: {fileID: 976901447}
   gameOverCanvas: {fileID: 1958224605}
-  startGameHintText: {fileID: 0}
   volumeSliderMusic: {fileID: 2018065411}
   volumeSliderSFX: {fileID: 1323786511}
   mouseSlider: {fileID: 186221317}
@@ -13225,9 +13224,9 @@ MonoBehaviour:
   - {fileID: 5800439113591415603, guid: 58c8d2b94270d4440b479e0841cdb4d2, type: 3}
   - {fileID: 3504875919906575551, guid: 988f1122f1bfe3e43b25fa09a166930f, type: 3}
   startEnemys: 3
-  instantiateStartTime: 4
-  instantiateTimeLoss: 0.01
-  instantiateTimeMin: 0.2
+  instantiateStartTime: 3
+  instantiateTimeLoss: 0.03
+  instantiateTimeMin: 0.1
   gamePaused: 1
   gameStarted: 0
 --- !u!4 &1101258350
@@ -15383,8 +15382,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35, y: -190}
-  m_SizeDelta: {x: 907.57, y: 490.39}
+  m_AnchoredPosition: {x: -333.2, y: 22.84}
+  m_SizeDelta: {x: 171.18, y: 64.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1308771803
 MonoBehaviour:
@@ -15469,7 +15468,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 620.49725, w: 399.698}
+  m_margin: {x: 0, y: 0, z: 3.295063, w: -0.8902168}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -15618,7 +15617,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312923568}
-  m_LocalRotation: {x: 0.16363993, y: -0.000000008487221, z: 0.0000000014078252, w: 0.9865202}
+  m_LocalRotation: {x: 0.16363993, y: 0.000000008487222, z: -0.0000000014078255, w: 0.9865202}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15873,7 +15872,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326160436}
-  m_LocalRotation: {x: 0.13740796, y: -0.000000019599646, z: 0.0000000027189377, w: 0.99051464}
+  m_LocalRotation: {x: 0.13740796, y: 0.000000019599646, z: -0.0000000027189377, w: 0.99051464}
   m_LocalPosition: {x: 18.121685, y: 59.684105, z: 71.77439}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -17065,12 +17064,14 @@ MonoBehaviour:
 
     Look - Mouse
 
-    Shoot Arc - Left mouse button
+    Pause - Escape
 
-    Attack
-    Hammer - Right mouse button
+    Shoot Arc - Left
+    mouse button
 
-    Pause - Escape'
+    Attack Hammer - Right mouse button
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0ee79859b0546049be1f1c6e4970be9, type: 2}
   m_sharedMaterial: {fileID: 7948561086055790674, guid: c0ee79859b0546049be1f1c6e4970be9, type: 2}
@@ -17867,12 +17868,12 @@ MonoBehaviour:
 
     Look - Mouse
 
-    Shoot Arc - Left mouse button
+    Pause - Escape
 
-    Attack
-    Hammer - Right mouse button
+    Shoot Arc - Left
+    mouse button
 
-    Pause - Escape'
+    Attack Hammer - Right mouse button'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0ee79859b0546049be1f1c6e4970be9, type: 2}
   m_sharedMaterial: {fileID: 7948561086055790674, guid: c0ee79859b0546049be1f1c6e4970be9, type: 2}
@@ -24212,8 +24213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -190}
-  m_SizeDelta: {x: 907.57, y: 490.39}
+  m_AnchoredPosition: {x: 85.65, y: 27.598}
+  m_SizeDelta: {x: 536.27, y: 55.195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2050694584
 MonoBehaviour:
@@ -24298,7 +24299,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 378.74725, y: 0, z: 0, w: 377.13437}
+  m_margin: {x: 18.318832, y: 0, z: 7.767044, w: -3.4905634}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -25119,7 +25120,7 @@ PrefabInstance:
       objectReference: {fileID: 1326160441}
     - target: {fileID: 7933539668389739491, guid: 487fb1998baa2fc4c98d341b596eae1d, type: 3}
       propertyPath: maxLives
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7933539668389739491, guid: 487fb1998baa2fc4c98d341b596eae1d, type: 3}
       propertyPath: activeOnStart
