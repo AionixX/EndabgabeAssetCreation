@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float instantiateTimeLoss = 0.05f;
     [SerializeField] float instantiateTimeMin = 0.2f;
 
+    public int numEnemys = 0;
+    public int activeEnemys = 0;
+    public float totalEnemys = 0;
+
     public bool gamePaused = false;
     public bool gameStarted = false;
     private List<GameObject> enemys = new List<GameObject>();
@@ -163,6 +167,7 @@ public class GameManager : MonoBehaviour
     public void EnemyDied()
     {
         instantiateTime = Mathf.Clamp(instantiateTime - instantiateTimeLoss, instantiateTimeMin, float.MaxValue);
+        activeEnemys--;
     }
 
     private void SpawnEnemy()
@@ -173,6 +178,8 @@ public class GameManager : MonoBehaviour
         EnemyController newEnemy = Instantiate(enemy, rndPos, Quaternion.identity);
         newEnemy.TakePlayer(player);
         actualInstantiateTimer = instantiateTime;
+        numEnemys++;
+        totalEnemys = numEnemys + activeEnemys;
     }
 
     public void ChangeMasterVolumeMusic() {

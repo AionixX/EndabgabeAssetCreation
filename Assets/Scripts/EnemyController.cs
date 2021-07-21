@@ -6,6 +6,10 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] PlayerController player = null;
     [SerializeField] CharacterController controller = null;
+    [SerializeField] int velocityHash = 0;
+    [SerializeField] int attackHash = 0;
+    [SerializeField] int dieHash = 0;
+    [SerializeField] int attackCancleHash = 0;
     [SerializeField] new Collider collider = null;
     [SerializeField] public GameObject portalPrefab = null;
     [SerializeField] int pointsWoth = 20;
@@ -30,7 +34,15 @@ public class EnemyController : MonoBehaviour
     bool isResetting = false;
     float actualResetCooldown = 0f;
 
-    void Update()
+    void Start()
+    {
+        velocityHash = Animator.StringToHash("velocity");
+        attackHash = Animator.StringToHash("attack");
+        dieHash = Animator.StringToHash("die");
+        attackCancleHash = Animator.StringToHash("attackCanceled");
+    }
+
+    void FixedUpdate()
     {
         if (!isActive) return;
         if (isAttacking)
@@ -99,15 +111,15 @@ public class EnemyController : MonoBehaviour
         desiredMoveDir = Vector3.Lerp(lastMoveDir, desiredMoveDir, smoothSpeedTime);
         controller.Move(transform.forward * desiredMoveDir.magnitude * speed * Time.deltaTime);
         if (_animate)
-            anim.SetFloat("velocity", desiredMoveDir.magnitude * speed);
+            anim.SetFloat(velocityHash, desiredMoveDir.magnitude * speed);
 
         lastMoveDir = desiredMoveDir;
     }
 
     public void StartAttack()
     {
-        anim.SetTrigger("attack");
-        anim.SetFloat("velocity", 0f);
+        anim.SetTrigger(attackHash);
+        anim.SetFloat(velocityHash, 0f);
         isAttacking = true;
     }
 
@@ -144,18 +156,19 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         player.AddScore(pointsWoth);
-        anim.SetTrigger("die");
+        anim.SetTrigger(dieHash);
         isActive = false;
         gameObject.tag = "Dead";
         GameManager.instance.EnemyDied();
         Destroy(controller);
         Destroy(collider);
+        Destroy(this);
     }
 
     public void ResetAttack()
     {
         isResetting = false;
-        anim.SetTrigger("attackCanceled");
+        anim.SetTrigger(attackCancleHash);
         actualCooldown = attackCooldown;
     }
 
