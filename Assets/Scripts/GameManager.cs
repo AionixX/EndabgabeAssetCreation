@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     [SerializeField] public PlayerController player = null;
     [SerializeField] public CinemachineFreeLook playerCam = null;
+    [SerializeField] HighscoreController highscoreController = null;
+    [SerializeField] public List<Score> scores = null;
+    [SerializeField] public HudController hud = null;
     [SerializeField] GameObject menuCanvas = null;
     [SerializeField] GameObject gameCanvas = null;
     [SerializeField] GameObject menuButtons = null;
@@ -37,11 +40,13 @@ public class GameManager : MonoBehaviour
 
     public bool gamePaused = false;
     public bool gameStarted = false;
+    public bool gameOver = false;
     private List<GameObject> enemys = new List<GameObject>();
     float instantiateTime = 2f;
     float actualInstantiateTimer = 0f;
     float baseCameraSpeedX = 0f;
     float baseCameraSpeedY = 0f;
+
 
     void Start()
     {
@@ -52,7 +57,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         GameManager.instance = this;
-        gamePaused = false;
 
         baseCameraSpeedX = playerCam.m_XAxis.m_MaxSpeed;
         baseCameraSpeedY = playerCam.m_YAxis.m_MaxSpeed;
@@ -61,6 +65,10 @@ public class GameManager : MonoBehaviour
         ChangeMasterVolumeSFX();
         UpdateCameraSpeed();
 
+        scores = highscoreController.LoadList();
+        hud.Init();
+
+        gamePaused = false;
         // StartGame();
     }
 
@@ -76,9 +84,12 @@ public class GameManager : MonoBehaviour
             SpawnEnemy();
     }
 
-    public void UpdateCameraSpeed() {
-        playerCam.m_XAxis.m_MaxSpeed = mouseSlider.value * baseCameraSpeedX;
-        playerCam.m_YAxis.m_MaxSpeed = mouseSlider.value * baseCameraSpeedY;
+    public void SubmitScore(string _name, int _score) {
+        highscoreController.Submit(_name, _score);
+    }
+    public void UpdateCameraSpeed(float _value = 1f) {
+        playerCam.m_XAxis.m_MaxSpeed = _value * baseCameraSpeedX;
+        playerCam.m_YAxis.m_MaxSpeed = _value * baseCameraSpeedY;
     }
 
     void LockCursor()
@@ -130,9 +141,10 @@ public class GameManager : MonoBehaviour
     {
         // pauseCanvas.SetActive(true);
         menuCanvas.SetActive(true);
-        pauseButtons.SetActive(true);
+        // pauseButtons.SetActive(true);
         gameCanvas.SetActive(false);
         gamePaused = true;
+        hud.OpenPauseGame();
         // Time.timeScale = 0f;
         UnlockCursor();
     }
@@ -141,7 +153,7 @@ public class GameManager : MonoBehaviour
     {
         // pauseCanvas.SetActive(false);
         menuCanvas.SetActive(false);
-        pauseButtons.SetActive(false);
+        // pauseButtons.SetActive(false);
         gameCanvas.SetActive(true);
         gamePaused = false;
         // Time.timeScale = 1f;
@@ -151,6 +163,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         gamePaused = true;
+        gameOver = true;
         gameOverScoreText.text = player.score.ToString();
         UnlockCursor();
 
@@ -182,12 +195,12 @@ public class GameManager : MonoBehaviour
         totalEnemys = numEnemys + activeEnemys;
     }
 
-    public void ChangeMasterVolumeMusic() {
-        AudioManager.instance.SetMasterVolume(volumeSliderMusic.value, AudioManagement.AudioType.MUSIC);
+    public void ChangeMasterVolumeMusic(float _volume = 1f) {
+        AudioManager.instance.SetMasterVolume(_volume, AudioManagement.AudioType.MUSIC);
     }
 
-    public void ChangeMasterVolumeSFX() {
-        AudioManager.instance.SetMasterVolume(volumeSliderSFX.value, AudioManagement.AudioType.SFX);
+    public void ChangeMasterVolumeSFX(float _volume = 1f) {
+        AudioManager.instance.SetMasterVolume(_volume, AudioManagement.AudioType.SFX);
     }
 
     private Vector3 GetRandomSpawnPosition()
@@ -205,9 +218,11 @@ public class GameManager : MonoBehaviour
     IEnumerator OpenGameOverScreen()
     {
         yield return new WaitForSeconds(openGameOverTime);
-        menuCanvas.SetActive(false);
-        menuButtons.SetActive(false);
-        pauseButtons.SetActive(false);
-        gameOverCanvas.SetActive(true);
+        gameCanvas.SetActive(false);
+        menuCanvas.SetActive(true);
+        hud.OpenGameOver();
+        // menuButtons.SetActive(false);
+        // pauseButtons.SetActive(false);
+        // gameOverCanvas.SetActive(true);
     }
 }

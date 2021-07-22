@@ -7,7 +7,7 @@ using TMPro;
 using System;
 
 [Serializable]
-struct Score
+public struct Score
 {
     public string name;
     public int score;
@@ -22,11 +22,11 @@ public class HighscoreController : MonoBehaviour
     [SerializeField] bool loadOnStart = true;
     [SerializeField] bool deleteOnStart = false;
     [SerializeField] int maxScores = 5;
-    [SerializeField] TMP_InputField inputField;
-    [SerializeField] TMP_Text scoreText;
-    [SerializeField] List<TMP_Text> nameList;
-    [SerializeField] List<TMP_Text> scoreList;
-    List<Score> highScoreList = new List<Score>();
+    // [SerializeField] TMP_InputField inputField;
+    // [SerializeField] TMP_Text scoreText;
+    // [SerializeField] List<TMP_Text> nameList;
+    // [SerializeField] List<TMP_Text> scoreList;
+    public List<Score> highScoreList = new List<Score>();
 
     void Start()
     {
@@ -35,41 +35,34 @@ public class HighscoreController : MonoBehaviour
         LoadList();
     }
 
-    void LoadList()
+    public List<Score> LoadList()
     {
         highScoreList = SimpleDataLoader.LoadData<List<Score>>(highScorePath);
 
         if (highScoreList == null)
         {
             highScoreList = new List<Score>();
-            SaveList();
+            SaveList(highScoreList);
         }
-        
-        UpdateUI();
+
+        return highScoreList;
+
+        // UpdateUI();
     }
 
-    void SaveList()
+    public void SaveList(List<Score> _scores)
     {
-        SimpleDataLoader.SaveData(highScoreList, highScorePath);
+        SimpleDataLoader.SaveData(_scores, highScorePath);
         LoadList();
     }
 
-    void UpdateUI()
+    public void Submit(string _name = "", int _score = 0)
     {
-        for (int i = 0; i < scoreList.Count; i++)
-        {
-            nameList[i].text = highScoreList.Count > i ? highScoreList[i].name : nullNameText;
-            scoreList[i].text = highScoreList.Count > i ? highScoreList[i].score.ToString() : nullScoreText;
-        }
-    }
-
-    public void Submit()
-    {
-        if (inputField.text == "") return;
+        if (_name == "") return;
 
         Score newScore = new Score();
-        newScore.name = inputField.text;
-        newScore.score = GameManager.instance.player.score;
+        newScore.name = _name;
+        newScore.score = _score;
 
         highScoreList.Add(newScore);
         highScoreList.RemoveAll(x => x.score == 0);
@@ -79,9 +72,7 @@ public class HighscoreController : MonoBehaviour
         if (highScoreList.Count > maxScores)
             highScoreList.RemoveRange(maxScores, highScoreList.Count - maxScores);
 
-        SaveList();
-
-        inputField.gameObject.SetActive(false);
+        SaveList(highScoreList);
     }
 
 }
