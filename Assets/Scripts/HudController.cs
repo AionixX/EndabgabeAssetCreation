@@ -143,11 +143,12 @@ public class HudController : MonoBehaviour
         closeHighScoresButton.SetActive(false);
         settingsButton.SetActive(true);
         howToPlayButton.SetActive(true);
+        quitGameButton.SetActive(true);
     }
 
     public void QuitGame()
     {
-        GameManager.instance.LoadScene("Game");
+        GameManager.instance.QuitGame();
     }
 
     public void OpenPauseGame()
@@ -161,7 +162,7 @@ public class HudController : MonoBehaviour
         closeHighScoresButton.SetActive(false);
         settingsButton.SetActive(true);
         howToPlayButton.SetActive(true);
-
+        quitGameButton.SetActive(true);
     }
 
     public void ClosePausedGame()

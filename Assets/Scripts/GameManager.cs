@@ -18,15 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] public HudController hud = null;
     [SerializeField] GameObject menuCanvas = null;
     [SerializeField] GameObject gameCanvas = null;
-    [SerializeField] GameObject menuButtons = null;
-    [SerializeField] GameObject pauseButtons = null;
-    // [SerializeField] GameObject pauseCanvas = null;
-    [SerializeField] GameObject gameOverCanvas = null;
     [SerializeField] Slider volumeSliderMusic = null;
     [SerializeField] Slider volumeSliderSFX = null;
     [SerializeField] Slider mouseSlider = null;
     [SerializeField] float openGameOverTime = 2f;
-    [SerializeField] TMP_Text gameOverScoreText = null;
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
     [SerializeField] List<EnemyController> enemyPrefabs = new List<EnemyController>();
     [SerializeField] int startEnemys = 5;
@@ -69,7 +64,6 @@ public class GameManager : MonoBehaviour
         hud.Init();
 
         gamePaused = false;
-        // StartGame();
     }
 
     void Update()
@@ -117,12 +111,7 @@ public class GameManager : MonoBehaviour
         baseCameraSpeedX = playerCam.m_XAxis.m_MaxSpeed;
         baseCameraSpeedY = playerCam.m_YAxis.m_MaxSpeed;
 
-        gameOverCanvas.SetActive(false);
-        menuButtons.SetActive(false);
-        pauseButtons.SetActive(false);
-        // pauseCanvas.SetActive(false);
         menuCanvas.SetActive(false);
-
         gameCanvas.SetActive(true);
 
         gamePaused = false;
@@ -137,26 +126,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void QuitGame() {
+        Application.Quit();
+    }
+
     public void PauseGame()
     {
-        // pauseCanvas.SetActive(true);
         menuCanvas.SetActive(true);
-        // pauseButtons.SetActive(true);
         gameCanvas.SetActive(false);
         gamePaused = true;
         hud.OpenPauseGame();
-        // Time.timeScale = 0f;
         UnlockCursor();
     }
 
     public void ResumeGame()
     {
-        // pauseCanvas.SetActive(false);
         menuCanvas.SetActive(false);
-        // pauseButtons.SetActive(false);
         gameCanvas.SetActive(true);
         gamePaused = false;
-        // Time.timeScale = 1f;
         LockCursor();
     }
 
@@ -164,7 +151,6 @@ public class GameManager : MonoBehaviour
     {
         gamePaused = true;
         gameOver = true;
-        gameOverScoreText.text = player.score.ToString();
         UnlockCursor();
 
         StartCoroutine(OpenGameOverScreen());
@@ -221,8 +207,5 @@ public class GameManager : MonoBehaviour
         gameCanvas.SetActive(false);
         menuCanvas.SetActive(true);
         hud.OpenGameOver();
-        // menuButtons.SetActive(false);
-        // pauseButtons.SetActive(false);
-        // gameOverCanvas.SetActive(true);
     }
 }
